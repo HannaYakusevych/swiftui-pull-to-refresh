@@ -127,12 +127,12 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
             let offset = movingY - fixedY
 
             // If the user pulled down below the threshold, prime the view
-            if offset > THRESHOLD && state == .waiting {
+            if offset > (THRESHOLD + topInset) && state == .waiting {
               state = .primed
 
             // If the view is primed and we've crossed the threshold again on the
             // way back, trigger the refresh
-            } else if offset < THRESHOLD && state == .primed {
+            } else if offset < (THRESHOLD + topInset) && state == .primed {
               state = .loading
               onRefresh { // trigger the refreshing callback
                 // once refreshing is done, smoothly move the loading view
