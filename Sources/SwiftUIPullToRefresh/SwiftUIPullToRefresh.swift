@@ -74,6 +74,7 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
 
   // We use a custom constructor to allow for usage of a @ViewBuilder for the content
   public init(showsIndicators: Bool = true,
+              topInset: CGFloat = 0,
               onRefresh: @escaping OnRefresh,
               @ViewBuilder progress: @escaping RefreshProgressBuilder<Progress>,
               @ViewBuilder content: @escaping () -> Content) {
