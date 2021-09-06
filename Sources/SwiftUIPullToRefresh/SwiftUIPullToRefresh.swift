@@ -151,9 +151,11 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
 // specify it every time.
 public extension RefreshableScrollView where Progress == RefreshActivityIndicator {
     init(showsIndicators: Bool = true,
+         topInset: CGFloat = 0,
          onRefresh: @escaping OnRefresh,
          @ViewBuilder content: @escaping () -> Content) {
         self.init(showsIndicators: showsIndicators,
+                  topInset: topInset,
                   onRefresh: onRefresh,
                   progress: { state in
                     RefreshActivityIndicator(isAnimating: state == .loading) {
