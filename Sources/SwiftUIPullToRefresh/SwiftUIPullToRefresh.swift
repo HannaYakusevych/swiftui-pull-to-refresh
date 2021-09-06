@@ -79,6 +79,7 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
               @ViewBuilder progress: @escaping RefreshProgressBuilder<Progress>,
               @ViewBuilder content: @escaping () -> Content) {
     self.showsIndicators = showsIndicators
+    self.topInset = topInset
     self.onRefresh = onRefresh
     self.progress = progress
     self.content = content
