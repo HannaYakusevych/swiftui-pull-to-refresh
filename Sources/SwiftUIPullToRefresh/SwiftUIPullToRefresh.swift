@@ -67,7 +67,7 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
   let showsIndicators: Bool // if the ScrollView should show indicators
   let onRefresh: OnRefresh // the refreshing action
   let progress: RefreshProgressBuilder<Progress> // custom progress view
-  let topInset: CGFloat
+  var topInset: CGFloat = 0
   let content: () -> Content // the ScrollView content
 
   @State private var state = RefreshState.waiting // the current state
