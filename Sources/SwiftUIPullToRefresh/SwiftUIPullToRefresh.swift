@@ -67,6 +67,7 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
   let showsIndicators: Bool // if the ScrollView should show indicators
   let onRefresh: OnRefresh // the refreshing action
   let progress: RefreshProgressBuilder<Progress> // custom progress view
+  let topInset: CGFloat
   let content: () -> Content // the ScrollView content
 
   @State private var state = RefreshState.waiting // the current state
@@ -107,7 +108,7 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
               .frame(height: THRESHOLD)
             progress(state)
           }.offset(y: (state == .loading) ? 0 : -THRESHOLD)
-        }
+        }.padding(.top, topInset)
       }
       // Put a fixed PositionIndicator in the background so that we have
       // a reference point to compute the scroll offset.
