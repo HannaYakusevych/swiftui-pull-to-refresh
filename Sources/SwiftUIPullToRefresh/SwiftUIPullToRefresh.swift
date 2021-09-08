@@ -68,6 +68,7 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
   let onRefresh: OnRefresh // the refreshing action
   let progress: RefreshProgressBuilder<Progress> // custom progress view
   var topInset: CGFloat = 0
+  var bottomInset: CGFloat = 0
   let content: () -> Content // the ScrollView content
 
   @State private var state = RefreshState.waiting // the current state
@@ -75,11 +76,13 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
   // We use a custom constructor to allow for usage of a @ViewBuilder for the content
   public init(showsIndicators: Bool = true,
               topInset: CGFloat = 0,
+              bottomInset: CGFloat = 0,
               onRefresh: @escaping OnRefresh,
               @ViewBuilder progress: @escaping RefreshProgressBuilder<Progress>,
               @ViewBuilder content: @escaping () -> Content) {
     self.showsIndicators = showsIndicators
     self.topInset = topInset
+    self.bottomInset = bottomInset
     self.onRefresh = onRefresh
     self.progress = progress
     self.content = content
@@ -111,6 +114,7 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
             progress(state)
           }.offset(y: (state == .loading) ? 0 : -THRESHOLD)
         }.padding(.top, topInset)
+      .padding(.bottom, bottomInset)
       }
       // Put a fixed PositionIndicator in the background so that we have
       // a reference point to compute the scroll offset.
@@ -153,10 +157,12 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
 public extension RefreshableScrollView where Progress == RefreshActivityIndicator {
     init(showsIndicators: Bool = true,
          topInset: CGFloat = 0,
+         bottomInset: CGFloat = 0,
          onRefresh: @escaping OnRefresh,
          @ViewBuilder content: @escaping () -> Content) {
         self.init(showsIndicators: showsIndicators,
                   topInset: topInset,
+                  bottomInset: bottomInset,
                   onRefresh: onRefresh,
                   progress: { state in
                     RefreshActivityIndicator(isAnimating: state == .loading) {
