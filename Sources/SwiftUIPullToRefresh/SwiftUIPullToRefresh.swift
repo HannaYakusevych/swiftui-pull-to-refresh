@@ -105,6 +105,7 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
            .alignmentGuide(.top, computeValue: { _ in
              (state == .loading) ? -THRESHOLD : 0
             })
+            .padding(.bottom, bottomInset)
 
           // The loading view. It's offset to the top of the content unless we're loading.
           ZStack {
@@ -114,7 +115,6 @@ public struct RefreshableScrollView<Progress, Content>: View where Progress: Vie
             progress(state)
           }.offset(y: (state == .loading) ? 0 : -THRESHOLD)
         }.padding(.top, topInset)
-      .padding(.bottom, bottomInset)
       }
       // Put a fixed PositionIndicator in the background so that we have
       // a reference point to compute the scroll offset.
